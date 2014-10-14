@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>404</h1>
 Sorry, the requested user with ID "${id}" does not exist.
 </body>
 </html>

@@ -23,16 +23,16 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<map>
 	<entry>
 	<key>
-	<value>01</value>
+	<value>default</value>
 	</key>
 	<bean class="edu.sjsu.cmpe275.lab2.Profile">
-		<property name="id" value="01" />
-		<property name="firstname" value="01" />
-		<property name="lastname" value="01" />
-		<property name="email" value="01" />
-		<property name="address" value="01" />
-		<property name="organization" value="01" />
-		<property name="aboutMyself" value="01" />
+		<property name="id" value="default" />
+		<property name="firstname" value="default" />
+		<property name="lastname" value="default" />
+		<property name="email" value="default" />
+		<property name="address" value="default" />
+		<property name="organization" value="default" />
+		<property name="aboutMyself" value="default" />
 	</bean>
 	</entry>
 	</map>

@@ -16,8 +16,7 @@ public class ProfileServiceImpl implements ProfileService {
 	public Profile getProfile(String userId) {
 		// TODO Auto-generated method stub
 		
-		if(!profile.containsKey(userId)){return null;}
-		else{return profile.get(userId);}
+		return profile.get(userId);
 	}
 
 	@Override

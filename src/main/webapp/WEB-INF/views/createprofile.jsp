@@ -7,32 +7,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script>
-function setMethod(i){
 
-	if(i == 2){
-		
-		document.getElementById("method").value="DELETE";
-	}
-	if(i == 1){
-		
-		document.getElementById("method").value="POST";
-	}
-}
-</script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Profile</title>
 </head>
 <body>
+
+
 <form:form modelAttribute="profile" id="profileform" method="post">
 <center>
 <table border="0" cellpadding="5" cellspacing="0" width="600">
 <tr>
 <td><b>ID*:</b></td>
-<td><input type="hidden" id="method" name="_method" value=""/>
-<input value='<c:out value="${profile.id}"></c:out>' id="id" name="id" type="text" maxlength="60" style="width:300px; border:1px solid #999999" readonly="readonly"/>
-</td>
+<td><form:input path = 'id' id="id" name="id" type="text" maxlength="60" style="width:300px; border:1px solid #999999" required="true"/></td>
 
 </tr>
 <tr>
@@ -67,8 +55,7 @@ function setMethod(i){
 <br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
-<input id="Update" name="Update" type="submit" value="Update" />
-<input onclick="setMethod(2)" id="Delete" name="Delete" type = "submit" value="Delete"/>
+<input id="Create" name="Create" type="submit" value="Create" />
 </td>
 </tr>
 </table>

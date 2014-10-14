@@ -13,36 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/")
 public class ProfileController {
-
-	  
-//	  public void setProfileService(ProfileService proSer){
-//		  
-//		  this.proSer = proSer;
-//	  }
-	   
-//	   @RequestMapping(method = RequestMethod.GET)
-//	   public ModelAndView student() {
-//	      return new ModelAndView("profile", "command", new Profile());
-//	   }
-//	   
-//	   @RequestMapping(value ="/results",method = RequestMethod.POST)
-//	   public String addProfile(@ModelAttribute("SpringWeb")Profile profile, 
-//	   ModelMap model) {
-//	      model.addAttribute("id", profile.getId());
-//	      model.addAttribute("firstname", profile.getFirstname());
-//	      model.addAttribute("lastname", profile.getLastname());
-//	      model.addAttribute("email", profile.getEmail());
-//	      model.addAttribute("address", profile.getAddress());
-//	      model.addAttribute("organization", profile.getOrganization());
-//	      model.addAttribute("aboutMyself", profile.getAboutMyself());
-//	      return "results";
-//	   }
-//	   @RequestMapping(value = "/home", method = RequestMethod.GET)
-//	   public String getHome(Model model) {
-//		   model.addAttribute("element", "fyin");
-//	      return "home";
-//	   }
-	
 	
 	  private ProfileServiceImpl proSer;
 	  
@@ -54,39 +24,38 @@ public class ProfileController {
 	  }
 	  
 	  @RequestMapping(value = "/profile", method = RequestMethod.GET)
-	  public String getBlankProfile(Model model){
+	  public String getCreateProfilePage(Model model){
 		  
 		   model.addAttribute("profile", new Profile());
-		   return "profile";		  
+
+		   return "createprofile";		  
 	  }
 	  
 	   @RequestMapping(value = "/profile", method = RequestMethod.POST)
-	   public String postProfile(@ModelAttribute Profile profile,Model model) {
+	   public String createProfile(@ModelAttribute Profile profile,Model model) {
 		   
 		   System.out.println("before add: " + proSer.getHashmap().size());
 		   proSer.storeProfile(profile);
 		   System.out.println("after added: " + proSer.getHashmap().size());
-		   return "profile";
-	   }	  
 
-//	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.GET)
-//	   public String getOneProfile(@PathVariable("id") String id,  Model model) {
-//
-//		   Profile pro = proSer.getProfile(id);
-//		   if(pro != null){
-//			   
-//			   model.addAttribute("profile", pro);
-//			   return "profile";				   
-//		   }
-//		   else{
-//			   
-//			   model.addAttribute("id", id);
-//			   return "404page";
-//		   }
-//	   }
+		   return "redirect:/profile/"+profile.getId();
+	   }	
+	   
+	   @RequestMapping(value = "/profile/{id}", method = RequestMethod.POST)
+	   public String updateProfile(@ModelAttribute Profile profile, @PathVariable("id") String id, Model model) {
+		   
+		   System.out.println("Update "+ id + " is triggered: before post " + proSer.getHashmap().size());
+//		   System.out.println("Profile being updated: " + profile.toString());
+		   proSer.storeProfile(profile);
+		   System.out.println("Update "+ id + " is triggered: after post " + proSer.getHashmap().size());
+		   model.addAttribute("profile", profile);
+
+		   return "redirect:/profile/" + id;
+	   }
+
 	   
 	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.GET)
-	   public String getOneProfileBrief(@PathVariable("id") String id, @RequestParam(required = false) final String brief, Model model) {
+	   public String getOneProfile(@PathVariable("id") String id, @RequestParam(required = false) final String brief, Model model) {
 		   
 		   if(brief != null && brief.equals("true")){
 			   
@@ -94,7 +63,7 @@ public class ProfileController {
 			   if(pro != null){
 				   
 				   model.addAttribute("profile", pro.toString());
-				   return "profile_brief";				   
+				   return "profile_brief";
 			   }
 			   else{
 				   
@@ -109,6 +78,7 @@ public class ProfileController {
 			   if(pro != null){
 				   
 				   model.addAttribute("profile", pro);
+
 				   return "profile";				   
 			   }
 			   else{
@@ -119,5 +89,25 @@ public class ProfileController {
 		   }
 	   }
 	   
+	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.DELETE)
+	   public String deleteOneProfile(@PathVariable("id") String id, Model model){
+		   
+		   System.out.println("DELETE /profile/"+ id + " is triggered: before delete " + proSer.getHashmap().size());
+		   if(proSer.getProfile(id) == null){
+			   
+			   System.out.println("404");
+			   model.addAttribute("id", id);
+			   return  "404page";
+		   }
+		   else{
+			   
+			   proSer.getHashmap().remove(id);
+			   System.out.println("DELETE /profile/"+ id + " is triggered: after delete " + proSer.getHashmap().size());
+			   model.addAttribute("profile", new Profile());
 
+			   return "redirect:/profile";
+		   }
+		   
+	   }
+	   
 }
