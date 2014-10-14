@@ -59,23 +59,7 @@ public class ProfileController {
 		   model.addAttribute("profile", new Profile());
 		   return "profile";		  
 	  }
-
-	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.GET)
-	   public String getOneProfile(@PathVariable("id") String id, @RequestParam("brief") String brief, Model model) {
-
-		   if(brief == null || brief.equals("") || brief.equals("false")){
-			   
-			   Profile pro = proSer.getProfile(id);
-			   model.addAttribute("profile", pro);
-			   return "profile";			   
-		   }
-		   else{
-			   
-			   return proSer.getProfile(id).toString();
-		   }
-
-	   }
-	   
+	  
 	   @RequestMapping(value = "/profile", method = RequestMethod.POST)
 	   public String postProfile(@ModelAttribute Profile profile,Model model) {
 		   
@@ -83,5 +67,57 @@ public class ProfileController {
 		   proSer.storeProfile(profile);
 		   System.out.println("after added: " + proSer.getHashmap().size());
 		   return "profile";
+	   }	  
+
+//	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.GET)
+//	   public String getOneProfile(@PathVariable("id") String id,  Model model) {
+//
+//		   Profile pro = proSer.getProfile(id);
+//		   if(pro != null){
+//			   
+//			   model.addAttribute("profile", pro);
+//			   return "profile";				   
+//		   }
+//		   else{
+//			   
+//			   model.addAttribute("id", id);
+//			   return "404page";
+//		   }
+//	   }
+	   
+	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.GET)
+	   public String getOneProfileBrief(@PathVariable("id") String id, @RequestParam(required = false) final String brief, Model model) {
+		   
+		   if(brief != null && brief.equals("true")){
+			   
+			   Profile pro = proSer.getProfile(id);
+			   if(pro != null){
+				   
+				   model.addAttribute("profile", pro.toString());
+				   return "profile_brief";				   
+			   }
+			   else{
+				   
+				   model.addAttribute("id", id);
+				   return "404page";
+			   }
+		   }
+		   
+		   else{
+			   
+			   Profile pro = proSer.getProfile(id);
+			   if(pro != null){
+				   
+				   model.addAttribute("profile", pro);
+				   return "profile";				   
+			   }
+			   else{
+				   
+				   model.addAttribute("id", id);
+				   return "404page";
+			   }
+		   }
 	   }
+	   
+
 }
