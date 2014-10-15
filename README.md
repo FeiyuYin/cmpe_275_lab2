@@ -1,4 +1,4 @@
-Lab 2 for cmpe 275 by team Binary.
+Lab 2 MVP for CMPE 275 by team Binary.
 
 sample
 ======
