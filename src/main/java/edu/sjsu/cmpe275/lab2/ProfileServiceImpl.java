@@ -3,6 +3,12 @@ package edu.sjsu.cmpe275.lab2;
 import java.util.HashMap;
 
 public class ProfileServiceImpl implements ProfileService {
+	
+	/**
+	 * HashMap named profile
+	 * Type of key maintained by this map is String
+	 * Type of mapped value is Set of Profiles
+	*/
 
 	private HashMap<String, Profile> profile; 
 	
