@@ -1,5 +1,12 @@
 package edu.sjsu.cmpe275.lab2;
 
+
+/**
+*This class creates getter and setter of parameters used in Profile
+
+*Getter and Setter of parameter Id, FirstName, LastName, Email, Address, Organization and aboutMyself
+*/
+
 public class Profile {
 	private String id;
     private String firstname;
