@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<!-- Form to create a new profile with various fields-->
+
 
 <form:form modelAttribute="profile" id="profileform" method="post">
 <center>
