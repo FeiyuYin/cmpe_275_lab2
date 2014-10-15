@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * ProfileController class is the controller of our MVP desigh 
+ */
+
 
 @Controller
 @RequestMapping("/")
@@ -23,6 +27,13 @@ public class ProfileController {
 		  System.out.println("in ProfileController init: " + proSer.getHashmap().size());
 	  }
 	  
+	  /**
+	   * getCreateProfilePage creates a new profile
+	   * /profile mapping 
+	   * @param model, add attributes of profile to this model
+	   * @return create profile page
+	   */
+	  
 	  @RequestMapping(value = "/profile", method = RequestMethod.GET)
 	  public String getCreateProfilePage(Model model){
 		  
@@ -30,6 +41,12 @@ public class ProfileController {
 
 		   return "createprofile";		  
 	  }
+	  
+	  /**
+	   * createProfile stores new profile in the Hashmap
+	   * @param profile with new userId
+	   * @returns to a page with url /profile/id
+	   */
 	  
 	   @RequestMapping(value = "/profile", method = RequestMethod.POST)
 	   public String createProfile(@ModelAttribute Profile profile,Model model) {
@@ -40,6 +57,13 @@ public class ProfileController {
 
 		   return "redirect:/profile/"+profile.getId();
 	   }	
+	   
+	   
+	   /**
+	    * updateProfile updates the already existing profile
+	    * @param profile, id gives the complete profile with given ID
+	    * @return to a page with updated profile and url /profile/id
+	    */
 	   
 	   @RequestMapping(value = "/profile/{id}", method = RequestMethod.POST)
 	   public String updateProfile(@ModelAttribute Profile profile, @PathVariable("id") String id, Model model) {
@@ -52,6 +76,13 @@ public class ProfileController {
 
 		   return "redirect:/profile/" + id;
 	   }
+	   
+	   /**
+	    * getOneProfile retrieves profile with given usedId
+	    * If profile exists with that userId then returns the profile page
+	    * If profile does not exists with param id then returns 404 error message page
+	    */
+
 
 	   
 	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.GET)
@@ -88,6 +119,15 @@ public class ProfileController {
 			   }
 		   }
 	   }
+	   
+	   
+	   
+	   /**
+	    * deleteOneprofile deletes profile with the given id
+	    * @param id whose profile is to be deleted
+	    * @return if profile exists remove it from the hashmap
+	    * @return if profile doesnot exists return it to the 404 error message page
+	    */
 	   
 	   @RequestMapping(value = "/profile/{id}",  method = RequestMethod.DELETE)
 	   public String deleteOneProfile(@PathVariable("id") String id, Model model){
